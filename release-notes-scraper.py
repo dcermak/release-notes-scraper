@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from dataclasses import dataclass
-from typing import List, Optional, Union
 import sys
 
 import requests
@@ -26,14 +25,14 @@ class Release:
 def fetch_releases(
     owner: str,
     repository: str,
-    min_version: Optional[Union[Version, LegacyVersion]] = None,
-    max_version: Optional[Union[Version, LegacyVersion]] = None,
-) -> List[Release]:
+    min_version: Version | LegacyVersion | None = None,
+    max_version: Version | LegacyVersion | None = None,
+) -> list[Release]:
     resp = requests.get(
         f"https://api.github.com/repos/{owner}/{repository}/releases?per_page=100"
     )
 
-    releases: List[Release] = []
+    releases: list[Release] = []
 
     for release in resp.json():
         ver = None

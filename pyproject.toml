@@ -6,7 +6,7 @@ authors = ["Dan Čermák <dcermak@suse.com>"]
 license = "GPL-3.0-or-later"
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<4.0"
+python = "^3.10"
 requests = ">=2.26"
 packaging = ">=21.3"
 
