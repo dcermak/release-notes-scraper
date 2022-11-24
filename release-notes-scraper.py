@@ -12,7 +12,7 @@ class Release:
     version: str
     changelog: str
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         self.changelog = self.changelog.replace("\r\n", "\n")
 
     def __str__(self) -> str:
