@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import sys
 
 import requests
-from packaging.version import InvalidVersion, LegacyVersion, Version, parse
+from packaging.version import InvalidVersion, Version, parse
 
 
 @dataclass
@@ -23,8 +23,8 @@ class Release:
 def fetch_releases(
     owner: str,
     repository: str,
-    min_version: Version | LegacyVersion | None = None,
-    max_version: Version | LegacyVersion | None = None,
+    min_version: Version | None = None,
+    max_version: Version | None = None,
 ) -> list[Release]:
     resp = requests.get(
         f"https://api.github.com/repos/{owner}/{repository}/releases?per_page=100"
@@ -43,7 +43,7 @@ def fetch_releases(
                 file=sys.stderr,
             )
             continue
-        assert isinstance(ver, (Version, LegacyVersion))
+        assert isinstance(ver, Version)
 
         if min_version is not None and ver <= min_version:
             continue
