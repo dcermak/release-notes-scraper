@@ -9,7 +9,7 @@ releases page.
 
 You will need the following tools:
 
-- Python 3.6.2 or later
+- Python 3.10 or later
 - [`poetry`](https://python-poetry.org/)
 
 Additionally, you have to clone this repository and initialize poetry:
