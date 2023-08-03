@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "Grab the changelog from releases on Github"
 authors = ["Dan Čermák <dcermak@suse.com>"]
 license = "GPL-3.0-or-later"
+packages = [
+    { include = "scraper" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -16,6 +19,9 @@ black = ">=21.12b0"
 [tool.poetry.group.dev.dependencies]
 mypy = ">=0.991"
 types-requests = ">=2.26"
+
+[tool.poetry.scripts]
+release-notes-scraper = "scraper.scraper:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
