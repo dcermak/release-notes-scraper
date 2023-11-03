@@ -33,16 +33,25 @@ def fetch_releases(
     releases: list[Release] = []
 
     for release in resp.json():
+        VER_STR_KEYS = ("name", "tag_name")
         ver = None
-        ver_str = release["name"].replace("v", "")
-        try:
-            ver = parse(ver_str)
-        except InvalidVersion as iv_err:
+
+        for ver_str_key in VER_STR_KEYS:
+            ver_str = release.get(ver_str_key, "").replace("v", "").strip()
+            try:
+                ver = parse(ver_str)
+                break
+            except InvalidVersion:
+                pass
+
+        if ver is None:
             print(
-                f"skipping version {ver_str}, not a valid semver, got the following error while parsing: {str(iv_err)}",
+                f"skipping version string {', '.join(release.get(k,'') for k in VER_STR_KEYS)},"
+                " not a valid semver",
                 file=sys.stderr,
             )
             continue
+
         assert isinstance(ver, Version)
 
         if min_version is not None and ver <= min_version:
@@ -50,7 +59,7 @@ def fetch_releases(
         if max_version is not None and ver > max_version:
             continue
 
-        releases.append(Release(version=ver_str, changelog=release["body"]))
+        releases.append(Release(version=str(ver), changelog=release["body"]))
 
     return releases
 
