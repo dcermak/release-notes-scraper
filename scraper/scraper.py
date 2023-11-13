@@ -37,7 +37,7 @@ def fetch_releases(
         ver = None
 
         for ver_str_key in VER_STR_KEYS:
-            ver_str = release.get(ver_str_key, "").replace("v", "").strip()
+            ver_str = (release.get(ver_str_key, "") or "").replace("v", "").strip()
             try:
                 ver = parse(ver_str)
                 break
