@@ -29,6 +29,7 @@ def fetch_releases(
     resp = requests.get(
         f"https://api.github.com/repos/{owner}/{repository}/releases?per_page=100"
     )
+    resp.raise_for_status()
 
     releases: list[Release] = []
 
